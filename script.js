@@ -21,6 +21,7 @@ function startGame() {
         tie: 0
     };
     round = 0;
+    document.getElementById("resultText").textContent = `Game started: ${maxRounds} rounds!`;
 }
 
 // Start game when page loads
@@ -57,7 +58,7 @@ function playGame(playerChoice) {
     score[result]++;
     round++;
 
-    alert(`You chose ${playerChoice}, computer chose ${computerChoice}. \n Won=${score.won}\n Lost=${score.lost}\n Tie=${score.tie}`)
+    resultAnimation(playerChoice, computerChoice, result);
     if (round === maxRounds) {
         endGame();
     }
@@ -82,5 +83,21 @@ function endGame() {
 
     if (confirm(`${finalMessage}\nFinal Score: Won=${score.won} Lost=${score.lost} Tie=${score.tie}\n\nPlay again?`)) {
         startGame();
+    }
+}
+
+//animation classes
+function resultAnimation(playerChoice, computerChoice, result) {
+    const resultText = document.getElementById("resultText");
+    resultText.textContent = `Round ${round} of ${maxRounds}: You chose ${playerChoice}, Computer chose ${computerChoice} → ${result.toUpperCase()}`;
+
+    resultText.className = "result-message";
+
+    if (result === "won") {
+        resultText.classList.add("win");
+    } else if (result === "lost") {
+        resultText.classList.add("lose");
+    } else {
+        resultText.classList.add("tie");
     }
 }
