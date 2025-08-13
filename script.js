@@ -9,6 +9,29 @@ let maxRounds;
 let result;
 let computerChoice;
 
+
+
+window.onload = function () {
+    startGame();
+};
+
+document.getElementById("rockBtn").addEventListener("click", function () {
+    playGame("Rock");
+});
+
+document.getElementById("paperBtn").addEventListener("click", function () {
+    playGame("Paper");
+});
+
+document.getElementById("scissorsBtn").addEventListener("click", function () {
+    playGame("Scissors");
+});
+
+document.getElementById("resetBtn").addEventListener("click", function () {
+    playGame("Reset");
+});
+
+
 function startGame() {
     maxRounds = parseInt(prompt("How many rounds do you want to play?"), 10);
     if (isNaN(maxRounds) || maxRounds <= 0) {
