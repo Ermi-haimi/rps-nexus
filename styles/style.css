@@ -8,6 +8,9 @@ header {
     padding: 2em;
     text-align: center;
     font-size: 2rem;
+    background-image: linear-gradient(45deg, salmon, 70%, rgb(255, 89, 0));
+    margin-bottom: 3em;
+    color: antiquewhite
 }
 
 button {
@@ -32,4 +35,18 @@ button {
 .button-con {
     display: flex;
     justify-content: space-evenly;
+}
+
+.reset {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3em;
+    margin-top: 2em;
+}
+
+.reset button {
+    background-color: brown;
+    color: antiquewhite;
 }
