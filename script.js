@@ -1,3 +1,9 @@
+let score = {
+    won: 0,
+    lost: 0,
+    tie: 0
+};
+
 function playGame(playerChoice) {
 
     computerChoice = pickComputerMove();
@@ -17,7 +23,9 @@ function playGame(playerChoice) {
         else result = 'tie';
     }
 
-    alert(`${result.toUpperCase()}, You chose ${playerChoice}, computer chose ${computerChoice}.`)
+    score[result]++;
+
+    alert(`You chose ${playerChoice}, computer chose ${computerChoice}. \n Won=${score.won}\n Lost=${score.lost}\n Tie=${score.tie}`)
 }
 
 function pickComputerMove() {
