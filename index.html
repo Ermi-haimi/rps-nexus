@@ -17,6 +17,30 @@
     </header>
     <main>
         <p id="resultText" class="result-message"></p>
+        <!-- result Popup -->
+        <div id="popup" class="popup hidden">
+            <div class="popup-content">
+                <p id="popupMessage"></p>
+                <div class="popup-buttons">
+                    <button id="popupOk">OK</button>
+                    <button id="popupCancel" class="hidden">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Input Popup -->
+        <div id="inputPopup" class="popup hidden">
+            <div class="popup-content">
+                <p id="inputPopupMessage">How many rounds do you want to play?</p>
+                <input type="number" id="roundInput" min="1" max="10" placeholder="Enter rounds" />
+                <div class="popup-buttons">
+                    <button id="inputOk">OK</button>
+                    <button id="inputCancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+
         <div class="button-con">
             <button id="rockBtn"><svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" viewBox="0 0 384 512"
                     class="rock">

@@ -31,24 +31,21 @@ document.getElementById("resetBtn").addEventListener("click", function () {
     playGame("Reset");
 });
 
-
 function startGame() {
-    maxRounds = parseInt(prompt("How many rounds do you want to play?"), 10);
-    if (isNaN(maxRounds) || maxRounds <= 0) {
-        alert("Invalid number of rounds! Defaulting to 5.");
-        maxRounds = 5;
-    }
-    score = {
-        won: 0,
-        lost: 0,
-        tie: 0
-    };
-    round = 0;
-    document.getElementById("resultText").textContent = `Game started: ${maxRounds} rounds!`;
-}
+    showInputPopup(function (rounds) {
+        if (rounds === null) return; // user canceled, do nothing
 
-// Start game when page loads
-window.onload = startGame;
+
+        maxRounds = rounds;
+        score = {
+            won: 0,
+            lost: 0,
+            tie: 0
+        };
+        round = 0;
+        document.getElementById("resultText").textContent = `Game started: ${maxRounds} rounds!`;
+    });
+}
 
 function playGame(playerChoice) {
     if (playerChoice === 'Reset') {
@@ -57,7 +54,9 @@ function playGame(playerChoice) {
     }
 
     if (round >= maxRounds) {
-        alert('Game over! Press Reset to play again.');
+        //alert('Game over! Press Reset to play again.');
+        showPopup("Game over! Press Reset to play again.");
+
         return;
     }
 
@@ -104,9 +103,10 @@ function endGame() {
         finalMessage = `🤝 It's a tie!`;
     }
 
-    if (confirm(`${finalMessage}\nFinal Score: Won=${score.won} Lost=${score.lost} Tie=${score.tie}\n\nPlay again?`)) {
-        startGame();
-    }
+    showPopup(`${finalMessage}\nFinal Score: Won=${score.won} Lost=${score.lost} Tie=${score.tie} \n Do You Want To Play again?`, function (confirmed) {
+        if (confirmed) startGame();
+    });
+
 }
 
 //animation classes
@@ -123,4 +123,60 @@ function resultAnimation(playerChoice, computerChoice, result) {
     } else {
         resultText.classList.add("tie");
     }
+}
+
+
+function showPopup(message, callback = null) {
+    const popup = document.getElementById("popup");
+    const popupMessage = document.getElementById("popupMessage");
+    const okBtn = document.getElementById("popupOk");
+    const cancelBtn = document.getElementById("popupCancel");
+
+    popupMessage.textContent = message;
+    popup.classList.remove("hidden");
+
+    // Clear old events
+    okBtn.onclick = null;
+    cancelBtn.onclick = null;
+
+    okBtn.onclick = function () {
+        popup.classList.add("hidden");
+        if (callback) callback(true);
+    };
+
+    cancelBtn.onclick = function () {
+        popup.classList.add("hidden");
+        if (callback) callback(false);
+    };
+}
+
+
+function showInputPopup(callback) {
+    const inputPopup = document.getElementById("inputPopup");
+    const roundInput = document.getElementById("roundInput");
+    const okBtn = document.getElementById("inputOk");
+    const cancelBtn = document.getElementById("inputCancel");
+
+    inputPopup.classList.remove("hidden");
+    roundInput.value = "";
+    roundInput.focus();
+
+    okBtn.onclick = function () {
+        let value = parseInt(roundInput.value, 10);
+        inputPopup.classList.add("hidden");
+
+        if (isNaN(value) || value <= 0) {
+            showPopup("Invalid number of rounds! Defaulting to 5.");
+            value = 5;
+        } else if (value > 10) {
+            showPopup("You should have entered a number less than 10. Now Round is 10");
+            value = 5;
+        }
+        callback(value);
+    };
+
+    cancelBtn.onclick = function () {
+        inputPopup.classList.add("hidden");
+        callback(null);
+    };
 }

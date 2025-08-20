@@ -7,20 +7,24 @@
 
 /* reset end */
 
+body {
+    background-color: rgb(41, 29, 29);
+}
+
 header {
     padding: 2em;
     text-align: center;
     font-size: 2rem;
-    background-image: linear-gradient(45deg, salmon, 70%, rgb(255, 89, 0));
-    margin-bottom: 2em;
-    color: antiquewhite;
+    margin-bottom: 1em;
+    color: white;
 }
 
 button {
     background-color: transparent;
-    border-color: salmon;
+    /* border-color: salmon; */
     border-radius: 10px;
     padding: 1em;
+    box-shadow: 4px 4px 12px hsla(0, 0%, 100%, 0.116);
 }
 
 .rock {
@@ -38,7 +42,8 @@ button {
 .button-con {
     display: flex;
     justify-content: space-evenly;
-    margin-top: 2rem;
+    width: max(60%, 500px);
+    margin: 0 auto;
 }
 
 .reset {
@@ -58,7 +63,7 @@ button {
 .result-message {
     font-size: 20px;
     font-weight: bold;
-    margin-top: 20px;
+    margin: 2em;
     text-align: center;
     transition: all 0.3s ease;
 }
@@ -121,4 +126,85 @@ button {
     100% {
         opacity: 1;
     }
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.popup.hidden {
+    display: none;
+}
+
+.popup-content {
+    background: transparent;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 4px 15px rgba(108, 105, 105, 0.3);
+    animation: fadeIn 1s ease;
+    color: white;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem
+}
+
+.popup-buttons {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-around;
+    width: 100%
+}
+
+.popup-buttons button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: white;
+}
+
+#popupOk {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#popupCancel {
+    background-color: #f44336;
+    color: white;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+#roundInput {
+    width: 80%;
+    padding: 8px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    text-align: center;
 }
